@@ -14,6 +14,19 @@ class JetInventory {
     public void addJet(Jet jet) {
         availableJets.add(jet);
     }
+    
+    // ADDED to remove jet from the inventory
+    public boolean removeJetModel(String model) {
+        Iterator<Jet> iterator = availableJets.iterator();
+        while (iterator.hasNext()) {
+            Jet jet = iterator.next();
+            if (jet.getModel().equalsIgnoreCase(model)) {
+                iterator.remove();
+                return true; // Successfully removed
+            }
+        }
+        return false; // Jet model not found
+    }
 
     // This removes a jet from the inventory
     public boolean removeJet(Jet jet) {
