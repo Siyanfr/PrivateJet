@@ -457,11 +457,6 @@ public class PrivateJetRentalApp {
             return;
         }
 
-        System.out.println("\n===== Available Jets =====");
-        for (int i = 0; i < filteredJets.size(); i++) {
-            System.out.println((i + 1) + ". " + filteredJets.get(i));
-        }
-
         // Jet selection process remains the same as in the original method
         System.out.print("Enter the number of the jet you want to book (0 to cancel): ");
         int jetIndex = getIntInput() - 1;
