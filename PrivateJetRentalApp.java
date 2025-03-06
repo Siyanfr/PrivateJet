@@ -10,6 +10,7 @@ public class PrivateJetRentalApp {
     private static UserManager userManager;
     private static BookingManager bookingManager;
     private static Scanner scanner;
+    private static User currentUser;
 
     // This is the entry point of the program
     public static void main(String[] args) {
@@ -18,6 +19,7 @@ public class PrivateJetRentalApp {
         loadJetsFromCSV();
         displayMainMenu();
     }
+
     private static void loadJetsFromCSV() {
         String csvFile = "jets_data.csv";
         System.out.println("Attempting to load jets from: " + new File(csvFile).getAbsolutePath());
@@ -171,7 +173,7 @@ public class PrivateJetRentalApp {
             System.out.println("No jets found matching your criteria.");
         } else {
             for (int i = 0; i < filteredJets.size(); i++) {
-                System.out.println((i+1) + ". " + filteredJets.get(i));
+                System.out.println((i + 1) + ". " + filteredJets.get(i));
             }
         }
         return filteredJets;
@@ -189,7 +191,7 @@ public class PrivateJetRentalApp {
             System.out.println("No jets found matching your criteria.");
         } else {
             for (int i = 0; i < filteredJets.size(); i++) {
-                System.out.println((i+1) + ". " + filteredJets.get(i));
+                System.out.println((i + 1) + ". " + filteredJets.get(i));
             }
         }
         return filteredJets;
@@ -223,7 +225,7 @@ public class PrivateJetRentalApp {
             System.out.println("No jets found in your specified budget range.");
         } else {
             for (int i = 0; i < budgetJets.size(); i++) {
-                System.out.println((i+1) + ". " + budgetJets.get(i));
+                System.out.println((i + 1) + ". " + budgetJets.get(i));
             }
             System.out.println("Total jets found: " + budgetJets.size());
         }
@@ -378,6 +380,7 @@ public class PrivateJetRentalApp {
 
         System.out.println("Registration successful! You can now login.");
     }
+
     // This displays the user's dashboard after login
     private static void userDashboard(User user) {
         boolean userLoggedIn = true;
@@ -456,7 +459,7 @@ public class PrivateJetRentalApp {
 
         System.out.println("\n===== Available Jets =====");
         for (int i = 0; i < filteredJets.size(); i++) {
-            System.out.println((i+1) + ". " + filteredJets.get(i));
+            System.out.println((i + 1) + ". " + filteredJets.get(i));
         }
 
         // Jet selection process remains the same as in the original method
@@ -564,7 +567,7 @@ public class PrivateJetRentalApp {
         System.out.println("\n===== Your Bookings =====");
         for (int i = 0; i < userBookings.size(); i++) {
             Booking booking = userBookings.get(i);
-            System.out.println((i+1) + ". From " + booking.getDeparture() +
+            System.out.println((i + 1) + ". From " + booking.getDeparture() +
                     " to " + booking.getDestination() +
                     " on " + booking.getFlightDate() +
                     " (" + booking.getJet().getModel() + ")");
@@ -590,7 +593,7 @@ public class PrivateJetRentalApp {
         System.out.println("\n===== Cancel Booking =====");
         for (int i = 0; i < userBookings.size(); i++) {
             Booking booking = userBookings.get(i);
-            System.out.println((i+1) + ". From " + booking.getDeparture() +
+            System.out.println((i + 1) + ". From " + booking.getDeparture() +
                     " to " + booking.getDestination() +
                     " on " + booking.getFlightDate() +
                     " (" + booking.getJet().getModel() + ")");
@@ -626,7 +629,8 @@ public class PrivateJetRentalApp {
         System.out.println("2. View All Bookings");
         System.out.println("3. View All Jets");
         System.out.println("4. Add New Jet");
-        System.out.println("5. Return to Main Menu");
+        System.out.println("5. Delete a Jet"); // ADDED Option to delete jets
+        System.out.println("6. Return to Main Menu");
         System.out.print("Enter your choice: ");
 
         int choice = getIntInput();
@@ -645,6 +649,9 @@ public class PrivateJetRentalApp {
                 addNewJetMenu();
                 break;
             case 5:
+                deleteJetMenu(); // ADDED Calls delete jet method
+                break;
+            case 6:
                 // Return to main menu
                 break;
             default:
@@ -683,11 +690,21 @@ public class PrivateJetRentalApp {
 
             int typeChoice = getIntInput();
             switch (typeChoice) {
-                case 1: type = "Ultra Long Range"; break;
-                case 2: type = "Large Jet"; break;
-                case 3: type = "Super Mid-Size"; break;
-                case 4: type = "Mid-Size"; break;
-                case 5: type = "Light Jet"; break;
+                case 1:
+                    type = "Ultra Long Range";
+                    break;
+                case 2:
+                    type = "Large Jet";
+                    break;
+                case 3:
+                    type = "Super Mid-Size";
+                    break;
+                case 4:
+                    type = "Mid-Size";
+                    break;
+                case 5:
+                    type = "Light Jet";
+                    break;
                 default:
                     System.out.println("Invalid type. Please try again.");
                     type = null;
@@ -741,6 +758,25 @@ public class PrivateJetRentalApp {
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a number.");
             return -1;
+        }
+    }
+
+    private static void deleteJetMenu() { // ADDED: New method to delete jets
+        System.out.println("\n===== Delete a Jet =====");
+        jetInventory.displayAllJets();
+        System.out.print("Enter the model of the jet to delete: ");
+        String modelToDelete = scanner.nextLine();
+
+        System.out.print("Are you sure you want to delete " + modelToDelete + "? (y/n): ");
+        String confirmation = scanner.nextLine().trim().toLowerCase();
+
+        if (confirmation.equals("y")) {
+            boolean removed = jetInventory.removeJetModel(modelToDelete);
+            if (removed) {
+                System.out.println("Jet successfully removed.");
+            } else {
+                System.out.println("Jet model not found.");
+            }
         }
     }
 }
