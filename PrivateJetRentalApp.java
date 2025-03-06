@@ -619,38 +619,41 @@ public class PrivateJetRentalApp {
 
     // This provides admin access to view all bookings
     private static void adminMenu() {
-        System.out.println("\n===== Admin Dashboard =====");
-        System.out.println("1. View All Users");
-        System.out.println("2. View All Bookings");
-        System.out.println("3. View All Jets");
-        System.out.println("4. Add New Jet");
-        System.out.println("5. Delete a Jet"); // ADDED Option to delete jets
-        System.out.println("6. Return to Main Menu");
-        System.out.print("Enter your choice: ");
+        boolean admin_loop = true; // Initialize Loop variable
+        while (admin_loop) { // Start Loop
+            System.out.println("\n===== Admin Dashboard =====");
+            System.out.println("1. View All Users");
+            System.out.println("2. View All Bookings");
+            System.out.println("3. View All Jets");
+            System.out.println("4. Add New Jet");
+            System.out.println("5. Delete a Jet"); // ADDED Option to delete jets
+            System.out.println("6. Return to Main Menu");
+            System.out.print("Enter your choice: ");
 
-        int choice = getIntInput();
+            int choice = getIntInput();
 
-        switch (choice) {
-            case 1:
-                userManager.displayAllUsers();
-                break;
-            case 2:
-                bookingManager.displayAllBookings();
-                break;
-            case 3:
-                jetInventory.displayAllJets();
-                break;
-            case 4:
-                addNewJetMenu();
-                break;
-            case 5:
-                deleteJetMenu(); // ADDED Calls delete jet method
-                break;
-            case 6:
-                // Return to main menu
-                break;
-            default:
-                System.out.println("Invalid choice. Returning to main menu.");
+            switch (choice) {
+                case 1:
+                    userManager.displayAllUsers();
+                    break;
+                case 2:
+                    bookingManager.displayAllBookings();
+                    break;
+                case 3:
+                    jetInventory.displayAllJets();
+                    break;
+                case 4:
+                    addNewJetMenu();
+                    break;
+                case 5:
+                    deleteJetMenu(); // ADDED Calls delete jet method
+                    break;
+                case 6:
+                    admin_loop = false;// EXITS loop return to main menu
+                    break;
+                default:
+                    System.out.println("Invalid choice. Returning to main menu.");
+            }
         }
     }
 
