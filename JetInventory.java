@@ -53,12 +53,22 @@ class JetInventory {
 
     // This displays all jets in the inventory
     public void displayAllJets() {
-        System.out.println("\n----- Available Jets -----");
+       // Print header with formatting
+        System.out.printf("%-5s %-25s %-20s %-10s %-12s %-15s\n",
+                "No.", "Model", "Type", "Capacity", "Available", "Rate ($/hour)");
+        System.out.println("----------------------------------------------------------------------");
+
         for (int i = 0; i < availableJets.size(); i++) {
             Jet jet = availableJets.get(i);
-            System.out.println((i+1) + ". " + jet);
+            System.out.printf("%-5d %-25s %-20s %-10d %-12s $%-15.2f\n",
+                    (i+1),
+                    jet.getModel(),
+                    jet.getType(),
+                    jet.getSeatCapacity(),
+                    (jet.isAvailable() ? "Yes" : "No"),
+                    jet.getHourlyRate());
         }
-        System.out.println("-------------------------");
+        System.out.println("----------------------------------------------------------------------");
     }
 
     // This gets a jet by its index in the list
