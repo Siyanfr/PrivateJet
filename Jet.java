@@ -64,7 +64,11 @@ class Jet {
     @Override
 
     public String toString() {
-        return "Model: " + model + ", Type: " + type + ", Capacity: " + seatCapacity +
-                ", Available: " + (isAvailable ? "Yes" : "No") + ", Rate: $" + hourlyRate + "/hour";
+         return String.format("%-25s | %-20s | Capacity: %-4d | Available: %-5s | Rate: $%.2f/hour",
+                model,
+                type,
+                seatCapacity,
+                (isAvailable ? "Yes" : "No"),
+                hourlyRate);
     }
 }
