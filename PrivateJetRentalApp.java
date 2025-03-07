@@ -134,7 +134,7 @@ public class PrivateJetRentalApp {
         System.out.println("4. Book a Jet (requires login)");
         System.out.println("5. Return to Main Menu");
         System.out.print("Enter your choice: ");
-        System.out.println();
+        
 
         int choice = getIntInput();
 
@@ -235,13 +235,14 @@ public class PrivateJetRentalApp {
 
     // Helper method to get double input
     private static double getDoubleInput() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
                 String input = scanner.nextLine();
                 return Double.parseDouble(input);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a valid number.");
-            }
+            }    System.out.print("Enter your minimum hourly budget: $");
         }
     }
 
