@@ -22,51 +22,35 @@ public class PrivateJetRentalApp {
 
     private static void loadJetsFromCSV() {
         String csvFile = "jets_data.csv";
-        System.out.println("Attempting to load jets from: " + new File(csvFile).getAbsolutePath());
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            // Print out the current working directory
-            System.out.println("Current working directory: " + System.getProperty("user.dir"));
-
-            // Skip header
-            String headerLine = br.readLine();
-            System.out.println("Header line: " + headerLine);
-
             String line;
             int jetCount = 0;
             while ((line = br.readLine()) != null) {
-                System.out.println("Processing line: " + line);
-
                 String[] jetData = line.split(",");
 
                 // Ensure we have all required data
                 if (jetData.length >= 4) {
                     try {
                         Jet jet = new Jet(
-                                jetData[0],                     // model
-                                jetData[1],                     // type
-                                Integer.parseInt(jetData[2]),   // seat capacity
+                                jetData[0].trim(),                // model
+                                jetData[1].trim(),                // type
+                                Integer.parseInt(jetData[2].trim()),   // seat capacity
                                 true,                           // availability
-                                Double.parseDouble(jetData[3])  // hourly rate
+                                Double.parseDouble(jetData[3].trim())  // hourly rate
                         );
                         jetInventory.addJet(jet);
                         jetCount++;
-                        System.out.println("Added jet: " + jet);
                     } catch (NumberFormatException e) {
-                        System.out.println("Error parsing jet data: " + Arrays.toString(jetData));
-                        e.printStackTrace();
+                        System.out.println("Error parsing jet data: " + line);
                     }
-                } else {
-                    System.out.println("Insufficient data in line: " + line);
                 }
             }
 
-            System.out.println("Total jets loaded: " + jetCount);
+            System.out.println("CSV file successfully loaded. Total jets: " + jetCount);
         } catch (IOException e) {
             System.out.println("Error reading jet data from CSV: " + e.getMessage());
-            e.printStackTrace();
 
-            // Load some default jets if CSV read fails
             loadDefaultJets();
         }
     }
