@@ -24,6 +24,9 @@ public class PrivateJetRentalApp {
         String csvFile = "jets_data.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            // Skip header
+            String headerLine = br.readLine();
+            
             String line;
             int jetCount = 0;
             while ((line = br.readLine()) != null) {
