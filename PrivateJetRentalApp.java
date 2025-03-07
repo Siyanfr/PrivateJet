@@ -291,96 +291,108 @@ public class PrivateJetRentalApp {
 
     // This registers a new user with input validation
     private static void registerUserMenu() {
-        System.out.println("\n===== User Registration =====");
+    System.out.println("\n===== User Registration =====");
 
-        // Get and validate username
-        String username;
-        boolean validUsername = false;
-        do {
-            System.out.print("Enter username: ");
-            username = scanner.nextLine().trim();
+    // Get and validate username
+    String username;
+    boolean validUsername = false;
+    do {
+        System.out.print("Enter username (or 'b' to go back): ");
+        username = scanner.nextLine().trim();
 
-            if (username.isEmpty()) {
-                System.out.println("Username cannot be empty. Please try again.");
-                continue;
-            }
+        if (username.equalsIgnoreCase("b")) {
+            System.out.println("Returning to the main menu...");
+            return; // Exit registration
+        }
 
-            if (username.length() < 4) {
-                System.out.println("Username must be at least 4 characters long. Please try again.");
-                continue;
-            }
+        if (username.isEmpty()) {
+            System.out.println("Username cannot be empty. Please try again.");
+            continue;
+        }
 
-            // Check if username already exists
-            if (userManager.findUserByUsername(username) != null) {
-                System.out.println("Username already taken. Please try another.");
-                continue;
-            }
+        if (username.length() < 4) {
+            System.out.println("Username must be at least 4 characters long. Please try again.");
+            continue;
+        }
 
-            validUsername = true;
-        } while (!validUsername);
+        if (userManager.findUserByUsername(username) != null) {
+            System.out.println("Username already taken. Please try another.");
+            continue;
+        }
 
-        // Get and validate email
-        String email;
-        boolean validEmail = false;
-        do {
-            System.out.print("Enter email: ");
-            email = scanner.nextLine().trim();
+        validUsername = true;
+    } while (!validUsername);
 
-            if (email.isEmpty()) {
-                System.out.println("Email cannot be empty. Please try again.");
-                continue;
-            }
+    // Get and validate email
+    String email;
+    boolean validEmail = false;
+    do {
+        System.out.print("Enter email (or 'b' to go back): ");
+        email = scanner.nextLine().trim();
 
-            if (email.length() < 4) {
-                System.out.println("Email must be at least 4 characters long. Please try again.");
-                continue;
-            }
+        if (email.equalsIgnoreCase("b")) {
+            System.out.println("Returning to the main menu...");
+            return;
+        }
 
-            if (!email.contains("@") || !email.matches(".*@.*\\..*")) {
-                System.out.println("Email must contain '@' and a domain (e.g., @something.com). Please try again.");
-                continue;
-            }
+        if (email.isEmpty()) {
+            System.out.println("Email cannot be empty. Please try again.");
+            continue;
+        }
 
-            // Check if email already exists
-            if (userManager.findUserByEmail(email) != null) {
-                System.out.println("Email already registered. Please try another.");
-                continue;
-            }
+        if (email.length() < 4) {
+            System.out.println("Email must be at least 4 characters long. Please try again.");
+            continue;
+        }
 
-            validEmail = true;
-        } while (!validEmail);
+        if (!email.contains("@") || !email.matches(".*@.*\\..*")) {
+            System.out.println("Email must contain '@' and a domain (e.g., @something.com). Please try again.");
+            continue;
+        }
 
-        // Get and validate phone number
-        String phoneNumber;
-        boolean validPhone = false;
-        do {
-            System.out.print("Enter phone number: ");
-            phoneNumber = scanner.nextLine().trim();
+        if (userManager.findUserByEmail(email) != null) {
+            System.out.println("Email already registered. Please try another.");
+            continue;
+        }
 
-            if (phoneNumber.isEmpty()) {
-                System.out.println("Phone number cannot be empty. Please try again.");
-                continue;
-            }
+        validEmail = true;
+    } while (!validEmail);
 
-            // Remove any non-digit characters for validation
-            String digitsOnly = phoneNumber.replaceAll("[^0-9]", "");
+    // Get and validate phone number
+    String phoneNumber;
+    boolean validPhone = false;
+    do {
+        System.out.print("Enter phone number (or 'b' to go back): ");
+        phoneNumber = scanner.nextLine().trim();
 
-            if (digitsOnly.length() != 11) {
-                System.out.println("Phone number must be exactly 11 digits long. Please try again.");
-                continue;
-            }
+        if (phoneNumber.equalsIgnoreCase("b")) {
+            System.out.println("Returning to the main menu...");
+            return;
+        }
 
-            // Keep the formatted phone number for storage
-            phoneNumber = digitsOnly;
-            validPhone = true;
-        } while (!validPhone);
+        if (phoneNumber.isEmpty()) {
+            System.out.println("Phone number cannot be empty. Please try again.");
+            continue;
+        }
 
-        // Create and add the new user
-        User newUser = new User(username, email, phoneNumber);
-        userManager.addUser(newUser);
+        // Remove any non-digit characters for validation
+        String digitsOnly = phoneNumber.replaceAll("[^0-9]", "");
 
-        System.out.println("Registration successful! You can now login.");
-    }
+        if (digitsOnly.length() != 11) {
+            System.out.println("Phone number must be exactly 11 digits long. Please try again.");
+            continue;
+        }
+
+        phoneNumber = digitsOnly;
+        validPhone = true;
+    } while (!validPhone);
+
+    // Create and add the new user
+    User newUser = new User(username, email, phoneNumber);
+    userManager.addUser(newUser);
+
+    System.out.println("Registration successful! You can now log in.");
+}
 
     // This displays the user's dashboard after login
     private static void userDashboard(User user) {
