@@ -523,13 +523,22 @@ public class PrivateJetRentalApp {
             }
         } while (destination.isEmpty());
 
-        String tripType;
+        String tripType = "";
+        int tripChoice;
         do {
-            System.out.print("Enter trip type (One-way/Round-trip): ");
-            tripType = scanner.nextLine().trim();
+            System.out.print("Enter trip type (1 for One-way, 2 for Round-trip): ");
+            tripChoice = scanner.nextInt();
+            scanner.nextLine();
 
-            if (tripType.isEmpty()) {
-                System.out.println("Trip type cannot be empty. Please try again.");
+            switch (tripChoice) {
+                case 1:
+                    tripType = "One-way";
+                    break;
+                case 2:
+                    tripType = "Round-trip";
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter 1 or 2.");
             }
         } while (tripType.isEmpty());
 
