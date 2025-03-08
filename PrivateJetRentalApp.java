@@ -195,24 +195,32 @@ public class PrivateJetRentalApp {
     }
 
     // This filters jets by their passenger capacity
-  private static List<Jet> filterJetsByCapacity() {
+    private static List<Jet> filterJetsByCapacity() {
         int minCapacity;
 
-        // Input validation loop
+        //
         while (true) {
             System.out.print("\nEnter minimum seat capacity required: ");
             String input = scanner.nextLine().trim();
 
             try {
                 minCapacity = Integer.parseInt(input);
-                break; // Exit loop if input is valid
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number.");
             }
         }
 
-    return filteredJets;
-}
+        List<Jet> filteredJets = jetInventory.findJets(null, minCapacity, true);
+
+
+        System.out.println("\n----- Filtered Jets -----");
+        for (int i = 0; i < filteredJets.size(); i++) {
+            System.out.println((i + 1) + ". " + filteredJets.get(i));
+        }
+
+        return filteredJets;
+    }
     private static List<Jet> filterJetsByBudget() {
         System.out.print("\nEnter your minimum hourly budget: $");
         double minBudget = getDoubleInput();
