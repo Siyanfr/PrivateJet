@@ -26,7 +26,7 @@ public class PrivateJetRentalApp {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             // Skip header
             String headerLine = br.readLine();
-            
+
             String line;
             int jetCount = 0;
             while ((line = br.readLine()) != null) {
@@ -121,7 +121,7 @@ public class PrivateJetRentalApp {
         System.out.println("4. Book a Jet (requires login)");
         System.out.println("5. Return to Main Menu");
         System.out.print("Enter your choice: ");
-        
+
 
         int choice = getIntInput();
 
@@ -149,9 +149,37 @@ public class PrivateJetRentalApp {
 
     // This filters jets by their type
     private static List<Jet> filterJetsByType() {
-        System.out.println("\nAvailable jet types: Ultra Long Range, Large Jet, Super Mid-Size, Light Jet");
-        System.out.print("Enter jet type to filter by: ");
-        String type = scanner.nextLine();
+        System.out.println("\nAvailable jet types:");
+        System.out.println("1. Ultra Long Range");
+        System.out.println("2. Large Jet");
+        System.out.println("3. Super Mid-Size");
+        System.out.println("4. Mid-Size");
+        System.out.println("5. Light Jet");
+        System.out.print("Select jet type (enter the number): ");
+
+        int type_jet = getIntInput();
+        String type = null;
+
+        switch (type_jet) {
+            case 1:
+                type = "Ultra Long Range";
+                break;
+            case 2:
+                type = "Large Jet";
+                break;
+            case 3:
+                type = "Super Mid-Size";
+                break;
+            case 4:
+                type = "Mid-Size";
+                break;
+            case 5:
+                type = "Light Jet";
+                break;
+            default:
+                System.out.println("Invalid choice. Returning to main menu.");
+                return Collections.emptyList(); // Return empty list if invalid choice
+        }
 
         List<Jet> filteredJets = jetInventory.findJets(type, 0, true);
 
@@ -278,108 +306,108 @@ public class PrivateJetRentalApp {
 
     // This registers a new user with input validation
     private static void registerUserMenu() {
-    System.out.println("\n===== User Registration =====");
+        System.out.println("\n===== User Registration =====");
 
-    // Get and validate username
-    String username;
-    boolean validUsername = false;
-    do {
-        System.out.print("Enter username (or 'b' to go back): ");
-        username = scanner.nextLine().trim();
+        // Get and validate username
+        String username;
+        boolean validUsername = false;
+        do {
+            System.out.print("Enter username (or 'b' to go back): ");
+            username = scanner.nextLine().trim();
 
-        if (username.equalsIgnoreCase("b")) {
-            System.out.println("Returning to the main menu...");
-            return; // Exit registration
-        }
+            if (username.equalsIgnoreCase("b")) {
+                System.out.println("Returning to the main menu...");
+                return; // Exit registration
+            }
 
-        if (username.isEmpty()) {
-            System.out.println("Username cannot be empty. Please try again.");
-            continue;
-        }
+            if (username.isEmpty()) {
+                System.out.println("Username cannot be empty. Please try again.");
+                continue;
+            }
 
-        if (username.length() < 4) {
-            System.out.println("Username must be at least 4 characters long. Please try again.");
-            continue;
-        }
+            if (username.length() < 4) {
+                System.out.println("Username must be at least 4 characters long. Please try again.");
+                continue;
+            }
 
-        if (userManager.findUserByUsername(username) != null) {
-            System.out.println("Username already taken. Please try another.");
-            continue;
-        }
+            if (userManager.findUserByUsername(username) != null) {
+                System.out.println("Username already taken. Please try another.");
+                continue;
+            }
 
-        validUsername = true;
-    } while (!validUsername);
+            validUsername = true;
+        } while (!validUsername);
 
-    // Get and validate email
-    String email;
-    boolean validEmail = false;
-    do {
-        System.out.print("Enter email (or 'b' to go back): ");
-        email = scanner.nextLine().trim();
+        // Get and validate email
+        String email;
+        boolean validEmail = false;
+        do {
+            System.out.print("Enter email (or 'b' to go back): ");
+            email = scanner.nextLine().trim();
 
-        if (email.equalsIgnoreCase("b")) {
-            System.out.println("Returning to the main menu...");
-            return;
-        }
+            if (email.equalsIgnoreCase("b")) {
+                System.out.println("Returning to the main menu...");
+                return;
+            }
 
-        if (email.isEmpty()) {
-            System.out.println("Email cannot be empty. Please try again.");
-            continue;
-        }
+            if (email.isEmpty()) {
+                System.out.println("Email cannot be empty. Please try again.");
+                continue;
+            }
 
-        if (email.length() < 4) {
-            System.out.println("Email must be at least 4 characters long. Please try again.");
-            continue;
-        }
+            if (email.length() < 4) {
+                System.out.println("Email must be at least 4 characters long. Please try again.");
+                continue;
+            }
 
-        if (!email.contains("@") || !email.matches(".*@.*\\..*")) {
-            System.out.println("Email must contain '@' and a domain (e.g., @something.com). Please try again.");
-            continue;
-        }
+            if (!email.contains("@") || !email.matches(".*@.*\\..*")) {
+                System.out.println("Email must contain '@' and a domain (e.g., @something.com). Please try again.");
+                continue;
+            }
 
-        if (userManager.findUserByEmail(email) != null) {
-            System.out.println("Email already registered. Please try another.");
-            continue;
-        }
+            if (userManager.findUserByEmail(email) != null) {
+                System.out.println("Email already registered. Please try another.");
+                continue;
+            }
 
-        validEmail = true;
-    } while (!validEmail);
+            validEmail = true;
+        } while (!validEmail);
 
-    // Get and validate phone number
-    String phoneNumber;
-    boolean validPhone = false;
-    do {
-        System.out.print("Enter phone number (or 'b' to go back): ");
-        phoneNumber = scanner.nextLine().trim();
+        // Get and validate phone number
+        String phoneNumber;
+        boolean validPhone = false;
+        do {
+            System.out.print("Enter phone number (or 'b' to go back): ");
+            phoneNumber = scanner.nextLine().trim();
 
-        if (phoneNumber.equalsIgnoreCase("b")) {
-            System.out.println("Returning to the main menu...");
-            return;
-        }
+            if (phoneNumber.equalsIgnoreCase("b")) {
+                System.out.println("Returning to the main menu...");
+                return;
+            }
 
-        if (phoneNumber.isEmpty()) {
-            System.out.println("Phone number cannot be empty. Please try again.");
-            continue;
-        }
+            if (phoneNumber.isEmpty()) {
+                System.out.println("Phone number cannot be empty. Please try again.");
+                continue;
+            }
 
-        // Remove any non-digit characters for validation
-        String digitsOnly = phoneNumber.replaceAll("[^0-9]", "");
+            // Remove any non-digit characters for validation
+            String digitsOnly = phoneNumber.replaceAll("[^0-9]", "");
 
-        if (digitsOnly.length() != 11) {
-            System.out.println("Phone number must be exactly 11 digits long. Please try again.");
-            continue;
-        }
+            if (digitsOnly.length() != 11) {
+                System.out.println("Phone number must be exactly 11 digits long. Please try again.");
+                continue;
+            }
 
-        phoneNumber = digitsOnly;
-        validPhone = true;
-    } while (!validPhone);
+            phoneNumber = digitsOnly;
+            validPhone = true;
+        } while (!validPhone);
 
-    // Create and add the new user
-    User newUser = new User(username, email, phoneNumber);
-    userManager.addUser(newUser);
+        // Create and add the new user
+        User newUser = new User(username, email, phoneNumber);
+        userManager.addUser(newUser);
 
-    System.out.println("Registration successful! You can now log in.");
-}
+        System.out.println("Registration successful! You can now log in.");
+    }
 
     // This displays the user's dashboard after login
     private static void userDashboard(User user) {
@@ -445,6 +473,7 @@ public class PrivateJetRentalApp {
                 break;
             case 4:
                 filteredJets = jetInventory.findJets(null, 0, true);
+                jetInventory.displayAllJets();
                 break;
             default:
                 System.out.println("Invalid choice. Showing all available jets.");
