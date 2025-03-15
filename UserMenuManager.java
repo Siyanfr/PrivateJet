@@ -163,6 +163,26 @@ public class UserMenuManager {
                     " (" + booking.getJet().getModel() + ")");
         }
 
+        int bookingIndex = -1;
+        boolean validInput = false;
+
+        while (!validInput) {
+            UserInterface.printPrompt("Enter booking number to view details (0 to go back): ");
+            bookingIndex = InputValidator.getIntInput() - 1;
+
+            if (bookingIndex == -1) {
+
+                return;
+            } else if (bookingIndex >= 0 && bookingIndex < userBookings.size()) {
+
+                validInput = true;
+                userBookings.get(bookingIndex).displayBookingDetails();
+            } else {
+
+                UserInterface.printError("Invalid booking number. Please try again.");
+            }
+        }
+    }
         UserInterface.printPrompt("Enter booking number to view details (0 to go back): ");
         int bookingIndex = InputValidator.getIntInput() - 1;
 
