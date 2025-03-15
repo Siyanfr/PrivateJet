@@ -49,10 +49,7 @@ public class UserMenuManager {
             UserInterface.printSuccess("Login successful!");
             userDashboard(user);
         } else {
-            UserInterface.printError("User not found. Would you like to register? (y/n)");
-            String response = scanner.nextLine();
-
-            if (response.equalsIgnoreCase("y")) {
+            if (InputValidator.getYesNoInput("User not found. Would you like to register?")) {
                 registerUserMenu();
             }
         }
@@ -214,12 +211,9 @@ public class UserMenuManager {
         if (bookingIndex >= 0 && bookingIndex < userBookings.size()) {
             Booking bookingToCancel = userBookings.get(bookingIndex);
 
-            UserInterface.printInfo("Are you sure you want to cancel this booking? (y/n)");
-            String confirmation = scanner.nextLine();
-
-            if (confirmation.equalsIgnoreCase("y")) {
+            boolean confirmCancel = InputValidator.getYesNoInput("Are you sure you want to cancel this booking?");
+            if (confirmCancel) {
                 boolean cancelled = bookingManager.cancelBooking(bookingToCancel);
-
                 if (cancelled) {
                     UserInterface.printSuccess("Booking successfully cancelled.");
                 } else {
