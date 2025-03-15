@@ -128,9 +128,8 @@ public class AdminMenuManager {
         System.out.println(newJet);
 
         // Optional: Ask if user wants to add another jet
-        UserInterface.printPrompt("\nWould you like to add another jet? (y/n): ");
-        String addAnother = scanner.nextLine().trim();
-        if (addAnother.equalsIgnoreCase("y")) {
+        boolean addAnother = InputValidator.getYesNoInput("Would you like to add another jet?");
+        if (addAnother) {
             addNewJetMenu();
         }
     }
@@ -141,10 +140,8 @@ public class AdminMenuManager {
         UserInterface.printPrompt("Enter the model of the jet to delete: ");
         String modelToDelete = scanner.nextLine();
 
-        UserInterface.printInfo("Are you sure you want to delete " + modelToDelete + "? (y/n): ");
-        String confirmation = scanner.nextLine().trim().toLowerCase();
-
-        if (confirmation.equals("y")) {
+        boolean confirmDelete = InputValidator.getYesNoInput("Are you sure you want to delete?");
+        if (confirmDelete) {
             boolean removed = jetInventory.removeJetModel(modelToDelete);
             if (removed) {
                 UserInterface.printSuccess("Jet successfully removed.");
