@@ -20,34 +20,39 @@ public class BookingMenuManager {
     }
 
     public void bookJetMenu(User user) {
-        // New filtering options menu
-        UserInterface.printSubHeader("\n===== Jet Filtering Options =====");
-        UserInterface.printMenuOption(1, "Filter by Jet Type");
-        UserInterface.printMenuOption(2, "Filter by Passenger Capacity");
-        UserInterface.printMenuOption(3, "Filter by Budget Range");
-        UserInterface.printMenuOption(4, "Show All Available Jets");
-        UserInterface.printPrompt("Choose a filtering method: ");
-
-        int filterChoice = InputValidator.getIntInput();
         List<Jet> filteredJets = new ArrayList<>();
+        int filterChoice;
 
-        switch (filterChoice) {
-            case 1:
-                filteredJets = jetBrowsingManager.filterJetsByType();
-                break;
-            case 2:
-                filteredJets = jetBrowsingManager.filterJetsByCapacity();
-                break;
-            case 3:
-                filteredJets = jetBrowsingManager.filterJetsByBudget();
-                break;
-            case 4:
-                filteredJets = jetInventory.findJets(null, 0, null);
-                jetInventory.displayFilteredJets(filteredJets);
-                break;
-            default:
-                UserInterface.printError("Invalid choice. Showing all available jets.");
-                filteredJets = jetInventory.findJets(null, 0, null);
+        while (true) {
+
+            UserInterface.printSubHeader("\n===== Jet Filtering Options =====");
+            UserInterface.printMenuOption(1, "Filter by Jet Type");
+            UserInterface.printMenuOption(2, "Filter by Passenger Capacity");
+            UserInterface.printMenuOption(3, "Filter by Budget Range");
+            UserInterface.printMenuOption(4, "Show All Available Jets");
+            UserInterface.printPrompt("Choose a filtering method: ");
+
+            filterChoice = InputValidator.getIntInput();
+
+            switch (filterChoice) {
+                case 1:
+                    filteredJets = jetBrowsingManager.filterJetsByType();
+                    break;
+                case 2:
+                    filteredJets = jetBrowsingManager.filterJetsByCapacity();
+                    break;
+                case 3:
+                    filteredJets = jetBrowsingManager.filterJetsByBudget();
+                    break;
+                case 4:
+                    filteredJets = jetInventory.findJets(null, 0, null);
+                    jetInventory.displayFilteredJets(filteredJets);
+                    break;
+                default:
+                    UserInterface.printError("Invalid choice. Input Only 1-4");
+                    continue;
+            }
+            break;
         }
 
         // Display filtered jets
