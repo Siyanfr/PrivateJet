@@ -91,4 +91,19 @@ public class InputValidator {
 
         return phoneNumber;
     }
+    public static boolean getYesNoInput(String prompt) {
+        String input;
+        do {
+            UserInterface.printPrompt(prompt + " (y/n): ");
+            input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("y")) {
+                return true;
+            } else if (input.equals("n")) {
+                return false;
+            } else {
+                UserInterface.printError("Invalid input. Please enter 'y' or 'n'.");
+            }
+        } while (true);
+    }
 }
