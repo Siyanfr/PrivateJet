@@ -7,35 +7,17 @@ class JetInventory {
     private static final String BOLD = "\u001B[1m";
 
     // Foreground colors
-    private static final String FG_BLACK = "\u001B[30m";
     private static final String FG_RED = "\u001B[31m";
     private static final String FG_GREEN = "\u001B[32m";
     private static final String FG_YELLOW = "\u001B[33m";
-    private static final String FG_BLUE = "\u001B[34m";
-    private static final String FG_MAGENTA = "\u001B[35m";
     private static final String FG_CYAN = "\u001B[36m";
-    private static final String FG_WHITE = "\u001B[37m";
 
     // Bright foreground colors
-    private static final String FG_BRIGHT_BLACK = "\u001B[90m";
     private static final String FG_BRIGHT_RED = "\u001B[91m";
     private static final String FG_BRIGHT_GREEN = "\u001B[92m";
-    private static final String FG_BRIGHT_YELLOW = "\u001B[93m";
-    private static final String FG_BRIGHT_BLUE = "\u001B[94m";
     private static final String FG_BRIGHT_MAGENTA = "\u001B[95m";
-    private static final String FG_BRIGHT_CYAN = "\u001B[96m";
-    private static final String FG_BRIGHT_WHITE = "\u001B[97m";
 
-    // Background colors
-    private static final String BG_BLACK = "\u001B[40m";
-    private static final String BG_RED = "\u001B[41m";
-    private static final String BG_GREEN = "\u001B[42m";
-    private static final String BG_YELLOW = "\u001B[43m";
-    private static final String BG_BLUE = "\u001B[44m";
-    private static final String BG_MAGENTA = "\u001B[45m";
-    private static final String BG_CYAN = "\u001B[46m";
-    private static final String BG_WHITE = "\u001B[47m";
-
+    
     // A list that holds all jets in the inventory
     private List<Jet> availableJets;
 
@@ -48,18 +30,7 @@ class JetInventory {
     public void addJet(Jet jet) {
         availableJets.add(jet);
     }
-
-    public boolean removeJetModel(String model) {
-        Iterator<Jet> iterator = availableJets.iterator();
-        while (iterator.hasNext()) {
-            Jet jet = iterator.next();
-            if (jet.getModel().equalsIgnoreCase(model)) {
-                iterator.remove();
-                return true; // Successfully removed
-            }
-        }
-        return false; // Jet model not found
-    }
+    
 
     // This removes a jet from the inventory
     public boolean removeJet(Jet jet) {
