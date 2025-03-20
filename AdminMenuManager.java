@@ -134,20 +134,33 @@ public class AdminMenuManager {
         }
     }
 
-    private void deleteJetMenu() {
-        UserInterface.printSubHeader("\n===== Delete a Jet =====");
-        jetInventory.displayAllJets();
-        UserInterface.printPrompt("Enter the model of the jet to delete: ");
-        String modelToDelete = scanner.nextLine();
+    public void deleteJetMenu() {
+        UserInterface.printHeader("==== Admin - Delete a Jet ====");
 
-        boolean confirmDelete = InputValidator.getYesNoInput("Are you sure you want to delete?");
-        if (confirmDelete) {
-            boolean removed = jetInventory.removeJetModel(modelToDelete);
-            if (removed) {
-                UserInterface.printSuccess("Jet successfully removed.");
-            } else {
-                UserInterface.printError("Jet model not found.");
-            }
+        jetInventory.displayAllJets();
+
+        UserInterface.printPrompt("Enter the number of the jet to delete: ");
+        int jetNumber = InputValidator.getIntInput();  // Get the jet number input
+
+        if (jetNumber < 1 || jetNumber > jetInventory.getJetCount()) {
+            UserInterface.printError("Invalid jet number. Please try again.");
+            return;
+        }
+
+        Jet jetToDelete = jetInventory.getJetByIndex(jetNumber - 1);
+        boolean jetRemoved = jetInventory.removeJet(jetToDelete);
+
+        if (jetRemoved) {
+            UserInterface.printSuccess("Jet model '" + jetToDelete.getModel() + "' removed successfully.");
+        } else {
+            UserInterface.printError("Failed to remove the jet. Please try again.");
+        }
+
+        boolean continueRemoval = InputValidator.getYesNoInput("Do you want to delete another jet?");
+        if (continueRemoval) {
+            deleteJetMenu();
+        } else {
+            UserInterface.printInfo("Returning to Admin Menu...");
         }
     }
 }
