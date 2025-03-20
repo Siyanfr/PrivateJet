@@ -159,7 +159,6 @@ public class UserMenuManager {
                     " on " + booking.getFlightDate() +
                     " (" + booking.getJet().getModel() + ")");
         }
-
         int bookingIndex = -1;
         boolean validInput = false;
 
@@ -178,13 +177,6 @@ public class UserMenuManager {
 
                 UserInterface.printError("Invalid booking number. Please try again.");
             }
-        }
-    }
-        UserInterface.printPrompt("Enter booking number to view details (0 to go back): ");
-        int bookingIndex = InputValidator.getIntInput() - 1;
-
-        if (bookingIndex >= 0 && bookingIndex < userBookings.size()) {
-            userBookings.get(bookingIndex).displayBookingDetails();
         }
     }
 
@@ -213,7 +205,9 @@ public class UserMenuManager {
 
             boolean confirmCancel = InputValidator.getYesNoInput("Are you sure you want to cancel this booking?");
             if (confirmCancel) {
+
                 boolean cancelled = bookingManager.cancelBooking(bookingToCancel);
+
                 if (cancelled) {
                     UserInterface.printSuccess("Booking successfully cancelled.");
                 } else {
