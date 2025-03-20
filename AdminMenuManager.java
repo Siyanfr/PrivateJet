@@ -53,7 +53,7 @@ public class AdminMenuManager {
     }
 
     private void addNewJetMenu() {
-        UserInterface.printSubHeader("\n===== Add New Jet =====");
+        UserInterface.printSubHeader("==== Admin - Add a Jet ====");
 
         // Create a new jet with default values
         Jet newJet = new Jet("", "", 0, true, 0.0);
@@ -140,7 +140,7 @@ public class AdminMenuManager {
         jetInventory.displayAllJets();
 
         UserInterface.printPrompt("Enter the number of the jet to delete: ");
-        int jetNumber = InputValidator.getIntInput();  // Get the jet number input
+        int jetNumber = InputValidator.getIntInput();
 
         if (jetNumber < 1 || jetNumber > jetInventory.getJetCount()) {
             UserInterface.printError("Invalid jet number. Please try again.");
