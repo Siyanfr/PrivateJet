@@ -7,6 +7,7 @@ public class UserMenuManager {
     private BookingManager bookingManager;
     private Scanner scanner;
 
+    // Constructor to initialize UserMenuManager with dependencies
     public UserMenuManager(JetInventory jetInventory, UserManager userManager, BookingManager bookingManager) {
         this.jetInventory = jetInventory;
         this.userManager = userManager;
@@ -14,6 +15,7 @@ public class UserMenuManager {
         this.scanner = new Scanner(System.in);
     }
 
+    // Displays the user login menu and handles login logic
     public void userLoginMenu() {
         UserInterface.printHeader("User Login");
         String username;
@@ -55,6 +57,7 @@ public class UserMenuManager {
         }
     }
 
+    // Displays the user registration menu and handles user registration
     public void registerUserMenu() {
         UserInterface.printHeader("User Registration");
 
@@ -104,6 +107,7 @@ public class UserMenuManager {
         UserInterface.printSuccess("Registration successful! You can now log in.");
     }
 
+    // Displays the user dashboard with options for the logged-in user
     public void userDashboard(User user) {
         boolean userLoggedIn = true;
 
@@ -143,6 +147,7 @@ public class UserMenuManager {
         }
     }
 
+    // Displays the user's bookings and allows viewing details
     private void viewUserBookings(User user) {
         List<Booking> userBookings = bookingManager.findBookingsByUser(user);
 
@@ -179,7 +184,7 @@ public class UserMenuManager {
             }
         }
     }
-
+    // Allows the user to cancel a booking
     private void cancelUserBooking(User user) {
         List<Booking> userBookings = bookingManager.findBookingsByUser(user);
 
