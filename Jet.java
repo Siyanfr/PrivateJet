@@ -22,22 +22,23 @@ class Jet {
     public String getModel() {
         return model;
     }
+    public String getType() {
+        return type;
+    }
+    public int getSeatCapacity() {
+        return seatCapacity;
+    }
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
 
     // These "setter" methods allow other parts of the program to change the jet's information
     public void setModel(String model) {
         this.model = model;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getSeatCapacity() {
-        return seatCapacity;
     }
 
     public void setSeatCapacity(int seatCapacity) {
@@ -52,19 +53,14 @@ class Jet {
         isAvailable = available;
     }
 
-    public double getHourlyRate() {
-        return hourlyRate;
-    }
-
     public void setHourlyRate(double hourlyRate) {
         this.hourlyRate = hourlyRate;
     }
 
     // This converts the jet's information into a readable text format
     @Override
-
     public String toString() {
-         return String.format("%-25s | %-20s | Capacity: %-4d | Available: %-5s | Rate: $%.2f/hour",
+        return String.format("%-25s | %-20s | Capacity: %-4d | Available: %-5s | Rate: $%.2f/hour",
                 model,
                 type,
                 seatCapacity,
