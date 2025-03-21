@@ -15,6 +15,31 @@ class UserManager {
         users.add(user);
     }
 
+    public void saveUsersToCSV(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (User  user : users) {
+                writer.write(user.getUsername() + "," + user.getEmail() + "," + user.getPhoneNumber());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving users: " + e.getMessage());
+        }
+    }
+    public void loadUsersFromCSV(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 3) {
+                    User user = new User(data[0].trim(), data[1].trim(), data[2].trim());
+                    addUser (user);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading users: " + e.getMessage());
+        }
+    }
+
     // This finds a user by their username
     public User findUserByUsername(String username) {
         for (User user : users) {
