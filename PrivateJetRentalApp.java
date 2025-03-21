@@ -10,6 +10,7 @@ public class PrivateJetRentalApp {
         BookingManager bookingManager = new BookingManager();
 
         // Load data
+        userManager.loadUsersFromCSV("users.csv");
         boolean dataLoaded = FileManager.loadJetsFromCSV(jetInventory);
         if (!dataLoaded) {
             // Load default jets if CSV read fails
@@ -19,6 +20,9 @@ public class PrivateJetRentalApp {
         // Start the application
         MainMenuManager mainMenu = new MainMenuManager(jetInventory, userManager, bookingManager);
         mainMenu.displayMainMenu();
+
+        // Save User Data Upon Exit
+        userManager.saveUsersToCSV("users.csv");
     }
 
     private static void loadDefaultJets(JetInventory jetInventory) {
