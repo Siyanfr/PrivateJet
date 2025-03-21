@@ -17,7 +17,7 @@ class JetInventory {
     private static final String FG_BRIGHT_GREEN = "\u001B[92m";
     private static final String FG_BRIGHT_MAGENTA = "\u001B[95m";
 
-    
+
     // A list that holds all jets in the inventory
     private List<Jet> availableJets;
 
@@ -30,7 +30,7 @@ class JetInventory {
     public void addJet(Jet jet) {
         availableJets.add(jet);
     }
-    
+
 
     // This removes a jet from the inventory
     public boolean removeJet(Jet jet) {
