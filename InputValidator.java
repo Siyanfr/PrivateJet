@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class InputValidator {
     private static Scanner scanner = new Scanner(System.in);
 
+    // Method to get an integer input from the user
     public static int getIntInput() {
         try {
             String input = scanner.nextLine();
@@ -13,6 +14,7 @@ public class InputValidator {
         }
     }
 
+    // Method to get a double input from the user
     public static double getDoubleInput() {
         try {
             String input = scanner.nextLine();
@@ -23,12 +25,12 @@ public class InputValidator {
         }
     }
 
+    // Method to get a string input with an optional empty check
     public static String getStringInput(String prompt, boolean allowEmpty) {
         String input;
         do {
             UserInterface.printPrompt(prompt);
             input = scanner.nextLine().trim();
-
             if (!allowEmpty && input.isEmpty()) {
                 UserInterface.printError("Input cannot be empty. Please try again.");
             } else {
@@ -39,6 +41,7 @@ public class InputValidator {
         return input;
     }
 
+    // Method to get a valid email input from the user
     public static String getEmail() {
         String email;
         boolean validEmail = false;
@@ -50,13 +53,15 @@ public class InputValidator {
                 return "b";
             }
 
+            // Validate email length
             if (email.length() < 4) {
                 UserInterface.printError("Email must be at least 4 characters long. Please try again.");
                 continue;
             }
 
+            // Validate email format
             if (!email.contains("@") || !email.matches(".*@.*\\..*")) {
-                UserInterface.printError("Email must contain '@' and a domain (e.g., @something.com). Please try again.");
+                UserInterface.printError("Email must contain '@' and a domain (e.g., @something.com). Please try again."); // Error message for invalid format
                 continue;
             }
 
@@ -66,6 +71,7 @@ public class InputValidator {
         return email;
     }
 
+    // Method to get a valid phone number input from the user
     public static String getPhoneNumber() {
         String phoneNumber;
         boolean validPhone = false;
@@ -77,9 +83,9 @@ public class InputValidator {
                 return "b";
             }
 
-            // Remove any non-digit characters for validation
             String digitsOnly = phoneNumber.replaceAll("[^0-9]", "");
 
+            // Validate phone number length
             if (digitsOnly.length() != 11) {
                 UserInterface.printError("Phone number must be exactly 11 digits long. Please try again.");
                 continue;
@@ -91,6 +97,8 @@ public class InputValidator {
 
         return phoneNumber;
     }
+
+    // Method to get a yes/no input from the user
     public static boolean getYesNoInput(String prompt) {
         String input;
         do {
@@ -105,5 +113,23 @@ public class InputValidator {
                 UserInterface.printError("Invalid input. Please enter 'y' or 'n'.");
             }
         } while (true);
+    }
+
+    // Method to get a string input that does not accept integers
+    public static String doNotAcceptInt(String prompt, boolean allowEmpty) {
+        String input;
+        do {
+            UserInterface.printPrompt(prompt);
+            input = scanner.nextLine().trim();
+            if (!allowEmpty && input.isEmpty()) {
+                UserInterface.printError("Input cannot be empty. Please try again.");
+            } else if (input.matches(".*\\d.*")) {
+                UserInterface.printError("Input cannot contain numbers. Please try again.");
+            } else {
+                break;
+            }
+        } while (true);
+
+        return input;
     }
 }
