@@ -12,21 +12,20 @@ class BookingManager {
 
     // This creates a new booking in the system
     public Booking createBooking(User user, Jet jet, String departure, String destination,
-                                 String tripType, String bookingDate, String flightDate, int flightDuration) {
+                                 String tripType, String bookingDate, String flightDate,
+                                 int flightDuration, double change) {
 
         // Only create booking if the jet is available
         if (jet.isAvailable()) {
             Booking newBooking = new Booking(user, jet, departure, destination,
-                    tripType, bookingDate, flightDate, flightDuration);
-
-            // Add the booking to both the global list and user's personal list
+                    tripType, bookingDate, flightDate, flightDuration, change);
             bookings.add(newBooking);
             user.addBooking(newBooking);
 
             return newBooking;
         }
 
-        return null; // Booking failed because jet is not available
+        return null;
     }
 
     // This cancels an existing booking
@@ -72,14 +71,14 @@ class BookingManager {
 
     // This displays all bookings in the system
     public void displayAllBookings() {
-        System.out.println("\n----- All Bookings -----");
+        UserInterface.printSubHeader("----- All Bookings -----");
         for (Booking booking : bookings) {
-            System.out.println("User: " + booking.getUser().getUsername() +
+            UserInterface.printInfo("User: " + booking.getUser().getUsername() +
                     ", Jet: " + booking.getJet().getModel() +
                     ", From: " + booking.getDeparture() +
                     ", To: " + booking.getDestination() +
                     ", Date: " + booking.getFlightDate());
         }
-        System.out.println("-----------------------");
+        UserInterface.printSubHeader("-----------------------");
     }
 }
