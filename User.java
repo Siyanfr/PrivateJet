@@ -23,30 +23,29 @@ class User {
         return username;
     }
 
-    // These "setter" methods allow other parts of the program to change the user's information
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    public List<String> getPastTrips() {
+        return pastTrips;
+    }
+
+    // These "setter" methods allow other parts of the program to change the user's information
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<String> getPastTrips() {
-        return pastTrips;
-    }
 
     // This adds a completed trip to the user's history
     public void addPastTrip(String trip) {
@@ -58,7 +57,7 @@ class User {
         this.bookings.add(booking);
     }
 
-    // This gets all of the user's current bookings
+    // This gets all the user's current bookings
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -70,11 +69,11 @@ class User {
 
     // This displays the user's profile information
     public void displayProfile() {
-        System.out.println("User Profile:");
-        System.out.println("Username: " + username);
-        System.out.println("Email: " + email);
-        System.out.println("Phone: " + phoneNumber);
-        System.out.println("Past Trips: " + pastTrips.size());
-        System.out.println("Current Bookings: " + bookings.size());
+        UserInterface.printSubHeader("User Profile:");
+        UserInterface.printInfo("Username: " + username);
+        UserInterface.printInfo("Email: " + email);
+        UserInterface.printInfo("Phone: " + phoneNumber);
+        UserInterface.printInfo("Past Trips: " + pastTrips.size());
+        UserInterface.printInfo("Current Bookings: " + bookings.size());
     }
 }
