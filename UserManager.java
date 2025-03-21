@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 
 // This class manages all users registered in the application
@@ -15,6 +16,7 @@ class UserManager {
         users.add(user);
     }
 
+    // File Management of Users
     public void saveUsersToCSV(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             for (User  user : users) {
@@ -47,7 +49,7 @@ class UserManager {
                 return user;
             }
         }
-        return null; // User not found
+        return null;
     }
 
     // This finds a user by their email
@@ -57,7 +59,7 @@ class UserManager {
                 return user;
             }
         }
-        return null; // User not found
+        return null;
     }
 
     // This removes a user from the system
@@ -72,10 +74,10 @@ class UserManager {
 
     // This displays all registered users
     public void displayAllUsers() {
-        System.out.println("\n----- Registered Users -----");
+        UserInterface.printSubHeader("----- Registered Users -----");
         for (User user : users) {
-            System.out.println("Username: " + user.getUsername() + ", Email: " + user.getEmail());
+            UserInterface.printInfo("Username: " + user.getUsername() + ", Email: " + user.getEmail());
         }
-        System.out.println("----------------------------");
+        UserInterface.printSubHeader("----------------------------");
     }
 }
