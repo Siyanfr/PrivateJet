@@ -22,9 +22,7 @@ public class BookingMenuManager {
     public void bookJetMenu(User user) {
         List<Jet> filteredJets = new ArrayList<>();
         int filterChoice;
-
         while (true) {
-
             UserInterface.printSubHeader("\n===== Jet Filtering Options =====");
             UserInterface.printMenuOption(1, "Filter by Jet Type");
             UserInterface.printMenuOption(2, "Filter by Passenger Capacity");
@@ -78,8 +76,8 @@ public class BookingMenuManager {
         }
 
         // Get booking details
-        String departure = InputValidator.getStringInput("Enter departure location (e.g., JFK, LAX): ", false);
-        String destination = InputValidator.getStringInput("Enter destination location: ", false);
+        String departure = InputValidator.doNotAcceptInt("Enter departure location (e.g., JFK, LAX): ", false);
+        String destination = InputValidator.doNotAcceptInt("Enter destination location: ", false);
 
         String tripType = "";
         do {
@@ -110,6 +108,22 @@ public class BookingMenuManager {
             }
         } while (flightDuration <= 0);
 
+        // Payment Process
+        double totalCost = selectedJet.getHourlyRate() * flightDuration * (tripType.equalsIgnoreCase("Round-trip") ? 2.0 : 1.0);
+        UserInterface.printHeader("The total cost for this booking is: $" + String.format("%.2f", totalCost));
+
+        double userBudget;
+        do {
+            UserInterface.printPrompt("Enter your available budget: ");
+            userBudget = InputValidator.getDoubleInput();
+
+            if (userBudget < totalCost) {
+                UserInterface.printError("Insufficient funds. Please enter a valid budget.");
+            }
+        } while (userBudget < totalCost);
+
+        double change = userBudget - totalCost;
+
         // Get current date
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -124,7 +138,8 @@ public class BookingMenuManager {
                 tripType,
                 bookingDate,
                 flightDate,
-                flightDuration
+                flightDuration,
+                change
         );
 
         if (newBooking != null) {
