@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Scanner;
 
 public class FileManager {
     public static boolean loadJetsFromCSV(JetInventory jetInventory) {
@@ -13,8 +12,6 @@ public class FileManager {
             int jetCount = 0;
             while ((line = br.readLine()) != null) {
                 String[] jetData = line.split(",");
-
-                // Ensure we have all required data
                 if (jetData.length >= 4) {
                     try {
                         Jet jet = new Jet(
@@ -39,5 +36,4 @@ public class FileManager {
             return false;
         }
     }
-
 }
