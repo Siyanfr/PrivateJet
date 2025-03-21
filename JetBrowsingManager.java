@@ -7,6 +7,7 @@ public class JetBrowsingManager {
     private BookingManager bookingManager;
     private Scanner scanner;
 
+    // Constructor to initialize JetBrowsingManager with dependencies
     public JetBrowsingManager(JetInventory jetInventory, UserManager userManager, BookingManager bookingManager) {
         this.jetInventory = jetInventory;
         this.userManager = userManager;
@@ -14,8 +15,9 @@ public class JetBrowsingManager {
         this.scanner = new Scanner(System.in);
     }
 
+    // Displays the menu for browsing jets and handles user choices
     public void browseJetsMenu() {
-        System.out.println("\n===== Available Jets =====");
+        UserInterface.printHeader("===== Available Jets =====");
         jetInventory.displayAllJets();
         UserInterface.printSubHeader("Options:");
         UserInterface.printMenuOption(1, "Filter Jets by Type");
@@ -50,6 +52,7 @@ public class JetBrowsingManager {
         }
     }
 
+    // Filters jets based on the selected type
     public List<Jet> filterJetsByType() {
         UserInterface.printSubHeader("Available jet types:");
         UserInterface.printMenuOption(1, "Ultra Long Range");
@@ -94,6 +97,7 @@ public class JetBrowsingManager {
         return filteredJets;
     }
 
+    // Filters jets based on the minimum seat capacity
     public List<Jet> filterJetsByCapacity() {
         int minCapacity;
 
@@ -116,6 +120,7 @@ public class JetBrowsingManager {
         return filteredJets;
     }
 
+    // Filters jets based on the user's budget range
     public List<Jet> filterJetsByBudget() {
         UserInterface.printPrompt("\nEnter your minimum hourly budget: $");
         double minBudget = InputValidator.getDoubleInput();
