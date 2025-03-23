@@ -102,7 +102,7 @@ public class InputValidator {
     public static boolean getYesNoInput(String prompt) {
         String input;
         do {
-            UserInterface.printPrompt(prompt + " (y/n): ");
+            UserInterface.printError(prompt + " (y/n): ");
             input = scanner.nextLine().trim().toLowerCase();
 
             if (input.equals("y")) {
