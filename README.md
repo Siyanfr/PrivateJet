@@ -1,6 +1,6 @@
 # PrivateJet - Private Jet Rental Application
 
-**PrivateJet** is a private jet rental application developed to simulate the process of booking and managing private jet rentals through an interactive system.  
+**PrivateJet is a private jet rental application developed to simulate the process of booking and managing private jet rentals through an interactive system.**  
 This project was created as the final requirement for the course **Programming with Data Structures**.
 
 The application offers users a seamless experience to:
