@@ -1,3 +1,6 @@
+## Private Jet 
+** A private jet rental application designed to simulate the experience of a website that facilitates the booking and management of private jet rentals. **
+
 This application is our final project for our course, Programming with Data Structures. It is a private jet rental application designed to 
 simulate the experience of a website that facilitates the booking and management of private jet rentals. It provides users with an intuitive
 interface to browse available jets, select preferred flight routes, and customize their travel experience. Our application incorporates essential data structures to 
